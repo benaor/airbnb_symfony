@@ -10,10 +10,13 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $ad = new Ad();
-
+        
         for($i=1 ; $i < 40; $i++){ 
 
+            //new Annonce
+            $ad = new Ad();
+            
+            //Add property of this ad
             $ad->setTitle("title number ".$i)
                 ->setSlug("titre-de-l-annonce".$i)
                 ->setCoverImage("http://placehold.it/1000x300")
