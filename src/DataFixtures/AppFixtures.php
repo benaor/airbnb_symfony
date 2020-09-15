@@ -12,15 +12,19 @@ class AppFixtures extends Fixture
     {
         $ad = new Ad();
 
-        $ad->setTitle("titre de l\'annonce")
-            ->setSlug("titre-de-l-annonce")
-            ->setCoverImage("http://placehold.it/1000x300")
-            ->setIntroduction("this is an amazing introduction")
-            ->setContent("<p>Hi, i'm very rich content</p>")
-            ->setPrice(80)
-            ->setRooms(3);
+        for($i=1 ; $i < 40; $i++){ 
 
-        $manager->persist($ad);
+            $ad->setTitle("title number ".$i)
+                ->setSlug("titre-de-l-annonce".$i)
+                ->setCoverImage("http://placehold.it/1000x300")
+                ->setIntroduction("this is an amazing introduction")
+                ->setContent("<p>Hi, i'm very rich content</p>")
+                ->setPrice(mt_rand(20, 500))
+                ->setRooms(mt_rand(0, 8));
+    
+            $manager->persist($ad);
+        }
+
         $manager->flush();
     }
 }
