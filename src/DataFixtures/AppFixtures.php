@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Ad;
+use Cocur\Slugify\Slugify;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Faker\Factory;
@@ -12,6 +13,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('FR-fr');
+        $slugify = new Slugify();
         
         for($i=1 ; $i < 40; $i++){ 
 
@@ -20,13 +22,14 @@ class AppFixtures extends Fixture
             
             //create faker data
             $title = $faker->sentence();
+            $slug = $slugify->slugify($title);
             $coverImage = $faker->imageUrl(1000, 350);
             $introduction = $faker->paragraph(2);
             $content = '<p>'.join('</p><p>', $faker->paragraphs(5)).'</p>';
 
             //Add property of this ad
             $ad->setTitle($title)
-                ->setSlug("titre-de-l-annonce".$i)
+                ->setSlug($slug)
                 ->setCoverImage($coverImage)
                 ->setIntroduction($introduction)
                 ->setContent($content)
