@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Ad;
+use App\Entity\Image;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Faker\Factory;
@@ -31,6 +32,16 @@ class AppFixtures extends Fixture
                 ->setContent($content)
                 ->setPrice(mt_rand(20, 500))
                 ->setRooms(mt_rand(0, 8));
+
+            for ($j=1; $j < mt_rand(2, 5); $j++) { 
+                $image      = new Image();
+
+                $image->setUrl($faker->imageUrl())
+                    ->setCaption($faker->sentence())
+                    ->setAd($ad);
+
+                    $manager->persist($image);
+            }
 
             $manager->persist($ad);
         }
