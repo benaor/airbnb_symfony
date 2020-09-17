@@ -26,7 +26,7 @@ class AdController extends AbstractController
     /**
      * For display a specific Ad
      * 
-     * @Route("/ads/{slug}", name="ads_index")
+     * @Route("/ads/{slug}", name="ads_show")
      */
     public function show($slug, AdRepository $adsRepository)
     {
