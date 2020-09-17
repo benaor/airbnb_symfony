@@ -2,18 +2,24 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\AdRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class AdController extends AbstractController
 {
     /**
-     * @Route("/ad", name="ad")
+     * @Route("/ads", name="ads_index")
      */
-    public function index()
+    public function index(AdRepository $adsRepository)
     {
+        //retrieve Ad Repository
+        $ads  = $adsRepository->findAll();
+
+        //Return template
         return $this->render('ad/index.html.twig', [
-            'controller_name' => 'AdController',
+            'ads' => $ads
         ]);
     }
 }

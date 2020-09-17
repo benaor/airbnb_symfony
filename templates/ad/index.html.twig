@@ -1,20 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdController!{% endblock %}
+{% block title %}Nos Annonces
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="container">
+		<h1 class="my-3">Voici les annonces de nos hôtes</h1>
+		<div class="row">
+			{% for ad in ads %}
+				<div class="col-md-4">
+					<div class="card bg-light mb-3">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+						<div class="card-header text-center">
+							{{ad.rooms}} Chambres,
+							<strong>{{ad.price}}€/nuit</strong>
+							<br>
+							<small>Pas encore noté</small>
+						</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Applications/MAMP/htdocs/symfony/airbnb_symfony/src/Controller/AdController.php'|file_link(0) }}">src/Controller/AdController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Applications/MAMP/htdocs/symfony/airbnb_symfony/templates/ad/index.html.twig'|file_link(0) }}">templates/ad/index.html.twig</a></code></li>
-    </ul>
-</div>
+						<img src="{{ ad.coverImage }}" alt="PhotoDuLogement" style="height: 200px; width: 100%; display: block">
+
+						<div class="card-body">
+							<h4 class="card-title">{{ad.title}}</h4>
+							<p>{{ad.introduction}}</p>
+							<a href="#" class="btn btn-secondary">
+								en savoir plus !</a>
+						</div>
+
+					</div>
+				</div>
+
+			{% endfor %}
+		</div>
+	</div>
+
 {% endblock %}
