@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ ad.title }}
+{% endblock %}
+
+{% block body %}
+
+<div 
+style="background-image: url({{ ad.coverImage }});">
+	<div class="container">
+		<h1 class="my-3">{{ ad.title }}</h1>
+		<p>{{ ad.introduction }}</p>
+		<p class="h2"> <strong>{{ ad.rooms }} chambres </strong> pour <strong>{{ ad.price }}€</strong> par nuit </p>
+		<a href="#" class="btn btn-primary">Reservez !</a>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 mb-3">
+			{{ ad.content | raw }}
+		</div>
+		<div class="col">
+			<div class="row">
+				<div class="col-4">
+					<img src="http://placehold.it/64x64" alt="avatar de l'hote">
+				</div>
+				<div class="col">
+					<h3>Joseph Dupont</h3>
+					<span class="badge badge-primary">3 annonces</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
