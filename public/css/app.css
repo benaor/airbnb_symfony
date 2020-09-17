@@ -1,6 +1,11 @@
+div.container{
+    margin-top: 20px;
+}
+
 div.ad-titre{
     padding: 2em;
     background-size: cover;
+    background-position: center center;
 }
 
 div.ad-titre h1, div.ad-titre p {
