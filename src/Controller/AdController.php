@@ -22,4 +22,21 @@ class AdController extends AbstractController
             'ads' => $ads
         ]);
     }
+
+    /**
+     * For display a specific Ad
+     * 
+     * @Route("/ads/{slug}", name="ads_index")
+     */
+    public function show($slug, AdRepository $adsRepository)
+    {
+        //retrieve the ad that matches the slug
+        $ad = $adsRepository->findOneBySlug($slug);
+
+        //Return template
+        return $this->render('ad/show.html.twig', [
+            'ad' => $ad
+        ]);
+    }
+
 }
