@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Ad;
 use App\Repository\AdRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,11 +29,8 @@ class AdController extends AbstractController
      * 
      * @Route("/ads/{slug}", name="ads_show")
      */
-    public function show($slug, AdRepository $adsRepository)
+    public function show(Ad $ad)
     {
-        //retrieve the ad that matches the slug
-        $ad = $adsRepository->findOneBySlug($slug);
-
         //Return template
         return $this->render('ad/show.html.twig', [
             'ad' => $ad
