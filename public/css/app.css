@@ -1,18 +1,19 @@
-div.container{
+div.container {
     margin-top: 20px;
 }
 
-div.ad-titre{
+div.ad-titre {
     padding: 2em;
     background-size: cover;
     background-position: center center;
 }
 
-div.ad-titre h1, div.ad-titre p {
+div.ad-titre h1,
+div.ad-titre p {
     color: white;
     text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
 
-div.carousel-caption{
+div.carousel-caption {
     text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
