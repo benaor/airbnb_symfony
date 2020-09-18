@@ -25,8 +25,29 @@ class AdController extends AbstractController
     }
 
     /**
+     * For create new Ads
+     * @Route("/ads/new", name="ads_new")
+     */
+    public function newAd()
+    {
+        $ad = new Ad();
+        $form = $this->createFormBuilder($ad,)
+            ->add('title')
+            ->add('introduction')
+            ->add('content')
+            ->add('rooms')
+            ->add('price')
+            ->add('coverImage')
+            ->getForm();
+
+        //Return template
+        return $this->render('ad/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * For display a specific Ad
-     * 
      * @Route("/ads/{slug}", name="ads_show")
      */
     public function show(Ad $ad)
@@ -36,5 +57,4 @@ class AdController extends AbstractController
             'ad' => $ad
         ]);
     }
-
 }
