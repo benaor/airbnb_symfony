@@ -23,7 +23,7 @@
 						<div class="card-body">
 							<h4 class="card-title">{{ad.title}}</h4>
 							<p>{{ad.introduction}}</p>
-							<a href="#" class="btn btn-secondary">
+							<a href="{{ path('ads_show', { 'slug': ad.slug }) }}" class="btn btn-secondary">
 								en savoir plus !</a>
 						</div>
 
