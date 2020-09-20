@@ -25,9 +25,9 @@ class AdType extends AbstractType
     private function getConfiguration($label, $placeholder)
     {
         return [
-            "label" => $label,
-            "attr" => [
-                "placeholder" => $placeholder
+            'label' => $label,
+            'attr' => [
+                'placeholder' => $placeholder
             ]
         ];
     }
