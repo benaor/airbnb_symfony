@@ -5,9 +5,10 @@ namespace App\Controller;
 use App\Entity\Ad;
 use App\Form\AdType;
 use App\Repository\AdRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\HttpFoundation\Request;
 
 class AdController extends AbstractController
 {
@@ -29,10 +30,23 @@ class AdController extends AbstractController
      * For create new Ads
      * @Route("/ads/new", name="ads_new")
      */
-    public function newAd()
+    public function newAd(Request $request, EntityManagerInterface $manager)
     {
         $ad = new Ad();
+
         $form = $this->createForm(AdType::class, $ad);
+
+        //Manage the HTTP Request in connection with the form
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($ad);
+            $manager->flush(); 
+
+            return $this->redirectToRoute('ads_show', [
+                'slug' => $ad->getSlug() 
+            ]);
+        }
 
         //Return template
         return $this->render('ad/new.html.twig', [
