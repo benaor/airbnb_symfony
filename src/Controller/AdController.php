@@ -67,6 +67,17 @@ class AdController extends AbstractController
     }
 
     /**
+     * For display the edit form
+     * 
+     * @Route("/ads/{slug}/edit", name="ads_edit") 
+     *
+     * @return response
+     */
+    public function editAd(Ad $ad){
+        return $this->render('ad/edit.html.twig');
+    }
+
+    /**
      * For display a specific Ad
      * @Route("/ads/{slug}", name="ads_show")
      */
