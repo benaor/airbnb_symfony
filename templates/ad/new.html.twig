@@ -68,6 +68,18 @@
         //Injecter le code dans la div
         $('#ad_images').append(tmpl);
 
+        //call the function delete
+        deleteInputImage();
     })
+
+    function deleteInputImage(){
+         $('button[data-action="delete"]').click(function(){
+             const target = this.dataset.target;
+             $(target).remove(); 
+         })
+    }
+
+    deleteInputImage();
+
 </script>
 {% endblock javascripts %}
