@@ -2,15 +2,22 @@
 
 namespace App\Entity;
 
-use Cocur\Slugify\Slugify;
 use App\Repository\AdRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=AdRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ * fields={"title"},
+ * message="une annonce ayant ce titre existe déjà, Veuillez changer le titre"
+ * )
  */
 class Ad
 {
@@ -23,6 +30,11 @@ class Ad
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     * min=10,
+     * max=50,
+     * minMessage="Votre titre est trop court (Min : 10)",
+     * maxMessage="Votre titre est trop long (max : 50)")
      */
     private $title;
 
@@ -38,16 +50,27 @@ class Ad
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     * min=50,
+     * max=250,
+     * minMessage="Votre introduction est trop court (Min : 50)",
+     * maxMessage="Votre introduction est trop long (max : 250)")
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+    * @Assert\Length(
+     * min=100,
+     * max=1000,
+     * minMessage="Votre description est trop court (Min : 100)",
+     * maxMessage="Votre description est trop long (max : 1000)")
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url()
      */
     private $coverImage;
 
