@@ -63,6 +63,7 @@
 {% endblock _ad_images_entry_widget %}
 
 {% block javascripts %}
+
 <script>
     $('#add-image').click(function () {
 
@@ -89,6 +90,12 @@
         })
     }
 
+    function updateCounter() {
+        const count = $('#ad_images div.form-group').length;
+        $('#widgets-counter').val(Number(count));
+    }
+
+    updateCounter();
     deleteInputImage();
 
 </script>

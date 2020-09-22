@@ -7,7 +7,7 @@
 
 {% form_theme form _self %}
 <div class="container">
-    <h1> Modifiez l'annonce "<strong>{{ ad.title }}</strong>"  </h1>
+    <h1> Modifiez l'annonce "<strong>{{ ad.title }}</strong>" </h1>
 
     {{ form_start(form) }}
 
@@ -63,6 +63,7 @@
 {% endblock _ad_images_entry_widget %}
 
 {% block javascripts %}
+
 <script>
     $('#add-image').click(function () {
 
@@ -76,19 +77,25 @@
         $('#ad_images').append(tmpl);
 
         //Increment Value of widget-counter
-        $('#widgets-counter').val(Number(index)+1);
+        $('#widgets-counter').val(Number(index) + 1);
 
         //call the function delete
         deleteInputImage();
     })
 
-    function deleteInputImage(){
-         $('button[data-action="delete"]').click(function(){
-             const target = this.dataset.target;
-             $(target).remove(); 
-         })
+    function deleteInputImage() {
+        $('button[data-action="delete"]').click(function () {
+            const target = this.dataset.target;
+            $(target).remove();
+        })
     }
 
+    function updateCounter() {
+        const count = +$('#ad_images div.form-group').length;
+        $('#widgets-counter').val(Number(count));
+    }
+
+    updateCounter();
     deleteInputImage();
 
 </script>
