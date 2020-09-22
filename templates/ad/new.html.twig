@@ -45,8 +45,14 @@
     <div class="row">
         <div class="col-10">
             <div class="row">
-                <div class="col">{{form_widget(form.url)}}</div>
-                <div class="col">{{form_widget(form.caption)}}</div>
+                <div class="col">
+                    {{form_widget(form.url)}}
+                    {{form_errors(form.url)}}
+                </div>
+                <div class="col">
+                    {{form_widget(form.caption)}}
+                    {{form_errors(form.caption)}}
+                </div>
             </div>
         </div>
         <div class="col-2">
@@ -70,17 +76,17 @@
         $('#ad_images').append(tmpl);
 
         //Increment Value of widget-counter
-        $('#widgets-counter').val(Number(index)+1);
+        $('#widgets-counter').val(Number(index) + 1);
 
         //call the function delete
         deleteInputImage();
     })
 
-    function deleteInputImage(){
-         $('button[data-action="delete"]').click(function(){
-             const target = this.dataset.target;
-             $(target).remove(); 
-         })
+    function deleteInputImage() {
+        $('button[data-action="delete"]').click(function () {
+            const target = this.dataset.target;
+            $(target).remove();
+        })
     }
 
     deleteInputImage();
