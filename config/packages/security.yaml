@@ -5,9 +5,9 @@ security:
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
-        users_in_database:
-            entity: 
+        in_memory: { memory: ~ }
+        in_database:
+            entity:
                 class: App\Entity\User
                 property: email
     firewalls:
@@ -17,14 +17,13 @@ security:
         main:
             anonymous: true
 
-            provider: users_in_database
-            
+            provider: in_database
+
             form_login: 
                 login_path: account_login
                 check_path: account_login
-                default_target_path: ads_index
 
-            logout: 
+            logout:
                 path: account_logout
                 target: account_login
 
