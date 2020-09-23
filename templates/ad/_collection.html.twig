@@ -1,0 +1,41 @@
+{# Redefine template for imageType #}
+{% block _ad_images_widget  %}
+
+<p> Ajoutez vos images : </p>
+{{ form_widget(form) }}
+<input type="hidden" id="widgets-counter" value="0">
+
+<div class="form-group">
+    <button type="button" id="add-image" class="btn btn-primary">Ajoutez une image</button>
+</div>
+{% endblock _ad_images_widget %}
+
+{# Redefine template for form_row #}
+{% block _ad_images_entry_row %}
+{{form_widget(form)}}
+{% endblock _ad_images_entry_row %}
+
+{# Redefine template for form_widget #}
+{% block _ad_images_entry_widget %}
+<div class="form-group" id="block_{{id}}">
+    <div class="row">
+        <div class="col-10">
+            <div class="row">
+                <div class="col">
+                    {{form_widget(form.url)}}
+                    {{form_errors(form.url)}}
+                </div>
+                <div class="col">
+                    {{form_widget(form.caption)}}
+                    {{form_errors(form.caption)}}
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{id}}">X</button>
+        </div>
+    </div>
+</div>
+{% endblock _ad_images_entry_widget %}
+
+ 
