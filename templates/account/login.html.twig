@@ -3,6 +3,7 @@
 {% block title %}Hello AccountController!{% endblock %}
 
 {% block body %}
+{{dump(error)}}
 
 <div class="container">
 
@@ -15,7 +16,7 @@
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" name="_username" id="email" class="form-control"
-                            placeholder="Adresse email ..." required>
+                            placeholder="Adresse email ..." required value="{{last_username}}">
                     </div>
                     <div class="form-group">
                         <label for="password">Mot de passe</label>
