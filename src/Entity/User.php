@@ -9,9 +9,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(
+ * fields={"email"},
+ * message="Cette adresse email à déjà été utilisé lors d'une précédente inscription sur notre site")
  */
 class User implements UserInterface
 {
@@ -24,21 +30,25 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Vous devez renseigner votre prénom")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Vous devez renseigner votre nom de famille")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Merci de renseigner un email Valide")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url(message="Vous devez renseigner une URL valide pour votre image")
      */
     private $picture;
 
@@ -49,11 +59,21 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     * min=10,
+     * max=100,
+     * minMessage="Votre introduction doit faire au minimum {{ limit }} caractères",
+     * maxMessage="Votre introduction doit faire au maximum {{ limit }} caractères")
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     * min=50,
+     * max=5000,
+     * minMessage="Votre decription doit faire au minimum {{ limit }} caractères",
+     * maxMessage="Votre decription doit faire au maximum {{ limit }} caractères")
      */
     private $description;
 
@@ -233,7 +253,7 @@ class User implements UserInterface
     public function getSalt()
     {
     }
-    
+
     public function getUsername()
     {
         return $this->email;
