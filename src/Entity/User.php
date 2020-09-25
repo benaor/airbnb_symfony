@@ -227,7 +227,7 @@ class User implements UserInterface
 
     public function getPassword()
     {
-        $this->hash;
+        return $this->hash;
     }
 
     public function getSalt()
@@ -236,7 +236,7 @@ class User implements UserInterface
     
     public function getUsername()
     {
-        $this->email;
+        return $this->email;
     }
 
     public function eraseCredentials()
