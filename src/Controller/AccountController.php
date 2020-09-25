@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
@@ -51,7 +52,7 @@ class AccountController extends AbstractController
      * 
      * @return Response
      */
-    public function register(EntityManagerInterface $manager, Request $request)
+    public function register(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder)
     {
 
         $user = new User();
@@ -63,6 +64,10 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //Encode the password
+            $encoded = $encoder->encodePassword($user, $user->getHash());
+            $user->setHash($encoded);
 
             $manager->persist($user);
             $manager->flush();
