@@ -3,8 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Ad;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use App\Form\ApplicationType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -13,26 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class AdType extends AbstractType
+class AdType extends ApplicationType
 {
-
-    /**
-     * For configure base of a input
-     *
-     * @param string $label
-     * @param string $placeholder
-     * @param array  $options
-     * @return array
-     */
-    private function getConfiguration($label, $placeholder, $options = [])
-    {
-        return array_merge([
-            'label' => $label,
-            'attr' => [
-                'placeholder' => $placeholder
-            ]
-            ], $options);
-    }
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
