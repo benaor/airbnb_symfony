@@ -58,6 +58,11 @@ class User implements UserInterface
     private $hash;
 
     /**
+     * @Assert\EqualTo(propertyPath="hash", message="Les deux mots de passe sont différents")
+     */
+    private $confirmPassword;
+
+    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      * min=10,
@@ -169,6 +174,18 @@ class User implements UserInterface
     public function setHash(string $hash): self
     {
         $this->hash = $hash;
+
+        return $this;
+    }
+
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirmPassword;
+    }
+
+    public function setConfirmPassword(string $confirmPassword): self
+    {
+        $this->confirmPassword = $confirmPassword;
 
         return $this;
     }
