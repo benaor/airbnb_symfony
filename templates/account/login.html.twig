@@ -3,7 +3,6 @@
 {% block title %}Hello AccountController!{% endblock %}
 
 {% block body %}
-{{dump(error)}}
 
 <div class="container">
 
@@ -12,6 +11,9 @@
         <div class="col-md-6">
             <div class="bg-primary p-3">
                 <h1>Connectez-vous !</h1>
+                {% if error %}
+                    <div class="alert alert-danger">L'adresse email ou le mot de passe que vous avez entré est incorrecte.</div>
+                {% endif %}
                 <form action="{{ path('account_login') }}" method="post">
                     <div class="form-group">
                         <label for="email">Email</label>
