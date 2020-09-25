@@ -39,4 +39,15 @@ class AccountController extends AbstractController
     public function logout()
     {
     }
+
+    /**
+     * For display the form registration
+     * 
+     * @Route("/register", name="account_register")
+     * 
+     * @return Response
+     */
+    public function register(){
+        
+    }
 }
