@@ -2,40 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PasswordUpdateRepository;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=PasswordUpdateRepository::class)
- */
 class PasswordUpdate
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $oldPassword;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $newPassword;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $confirmPassword;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getOldPassword(): ?string
     {
