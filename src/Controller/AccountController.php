@@ -96,7 +96,7 @@ class AccountController extends AbstractController
         $form = $this->createForm(AccountType::class, $user);
 
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $manager->persist($user);
@@ -109,6 +109,18 @@ class AccountController extends AbstractController
 
         return $this->render('account/profil.html.twig', [
             'form' => $form->createView()
-        ]); 
+        ]);
+    }
+
+    /**
+     * For change User password
+     * 
+     * @Route("/account/change-password", name="account_password")
+     * 
+     * @return Response
+     */
+    public function changePassword(Request $request, EntityManagerInterface $manager)
+    {
+        return $this->render('account/password.html.twig');
     }
 }
