@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\PasswordUpdate;
 use App\Entity\User;
 use App\Form\AccountType;
+use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -119,8 +121,37 @@ class AccountController extends AbstractController
      * 
      * @return Response
      */
-    public function changePassword(Request $request, EntityManagerInterface $manager)
+    public function changePassword(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
-        return $this->render('account/password.html.twig');
+        $passwordUpdate = new PasswordUpdate();
+
+        $user = $this->getUser();
+        $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            //Check old password and verif this
+            if (!password_verify($passwordUpdate->getOldPassword(), $user->getHash()) ) {
+                # ERROR, oldPassword is incorrect
+            } else {
+                $newPassword = $passwordUpdate->getNewPassword();
+                $encoded = $encoder->encodePassword($user, $newPassword);
+
+                $user->setHash($encoded); 
+
+                $manager->persist($user);
+                $manager->flush();
+
+                $this->addFlash('success', "votre mot de passe a bien été modifié");
+
+                return $this->redirectToRoute("account_profil");
+            } 
+        }
+
+        return $this->render('account/password.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
