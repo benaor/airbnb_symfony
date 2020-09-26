@@ -134,7 +134,15 @@ class AccountController extends AbstractController
 
             //Check old password and verif this
             if (!password_verify($passwordUpdate->getOldPassword(), $user->getHash()) ) {
-                # ERROR, oldPassword is incorrect
+
+                $this->addFlash('danger', "Votre mot de passe est incorrect");
+                return $this->redirectToRoute("account_password");
+
+            } elseif ($passwordUpdate->getOldPassword() == $passwordUpdate->getNewPassword()) {
+                
+                $this->addFlash('danger', "Vous ne pouvez pas réutiliser le même mot de passe !");
+                return $this->redirectToRoute("account_password");
+
             } else {
                 $newPassword = $passwordUpdate->getNewPassword();
                 $encoded = $encoder->encodePassword($user, $newPassword);
