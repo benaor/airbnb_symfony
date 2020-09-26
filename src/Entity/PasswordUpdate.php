@@ -6,8 +6,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class PasswordUpdate
 {
+
     private $oldPassword;
+
+    /**
+     * @Assert\Length(min=6, minMessage="Votre nouveau mot de passe doit faire au moins {{ limit }} caractères.")
+     */
     private $newPassword;
+
+    /**
+     * @Assert\EqualTo(propertyPath="newPassword", message="Vous n'avez pas entré les mêmes mots de passe")
+     */
     private $confirmPassword;
 
     public function getOldPassword(): ?string
