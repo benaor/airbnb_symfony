@@ -131,23 +131,21 @@ class AccountController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
             //Check old password and verif this
-            if (!password_verify($passwordUpdate->getOldPassword(), $user->getHash()) ) {
-                
-                $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez entré est incorrect."));
+            if (!password_verify($passwordUpdate->getOldPassword(), $user->getHash())) {
 
+                $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez entré est incorrect."));
             } elseif ($passwordUpdate->getOldPassword() == $passwordUpdate->getNewPassword()) {
-                
+
                 $this->addFlash('danger', "Vous ne pouvez pas réutiliser le même mot de passe !");
                 return $this->redirectToRoute("account_password");
-
             } else {
                 $newPassword = $passwordUpdate->getNewPassword();
                 $encoded = $encoder->encodePassword($user, $newPassword);
 
-                $user->setHash($encoded); 
+                $user->setHash($encoded);
 
                 $manager->persist($user);
                 $manager->flush();
@@ -155,11 +153,24 @@ class AccountController extends AbstractController
                 $this->addFlash('success', "votre mot de passe a bien été modifié");
 
                 return $this->redirectToRoute("account_profil");
-            } 
+            }
         }
 
         return $this->render('account/password.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * For Display Profil Of Connected User
+     * 
+     * @Route("/account/", name="account_index")
+     * 
+     * @return Response
+     */
+    public function myAccount(){
+        return $this->render('user/index.html.twig', [
+            'user' => $this->getUser()
         ]);
     }
 }
