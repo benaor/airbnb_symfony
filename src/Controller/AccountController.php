@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -134,9 +135,8 @@ class AccountController extends AbstractController
 
             //Check old password and verif this
             if (!password_verify($passwordUpdate->getOldPassword(), $user->getHash()) ) {
-
-                $this->addFlash('danger', "Votre mot de passe est incorrect");
-                return $this->redirectToRoute("account_password");
+                
+                $form->get('oldPassword')->addError(new FormError("Le mot de passe que vous avez entré est incorrect."));
 
             } elseif ($passwordUpdate->getOldPassword() == $passwordUpdate->getNewPassword()) {
                 
