@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %} {% block title %} {{ ad.title }} {% endblock %} {% block body %}
 
-<div class="ad-titre" style="background-image: url({{ ad.coverImage }});">
+<div class="ad-titre" style="background-image: url( {{ad.coverImage}} );">
     <div class="container">
         <h1>{{ ad.title }}</h1>
         <p>{{ ad.introduction }}</p>
