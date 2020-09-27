@@ -48,13 +48,23 @@
         </div>
         <div class="col">
             {% set author = ad.author %}
+            {% set pathAuthor = path('user_show', { 'slug' : author.slug }) %}
+            {# Author informations #}
             <div class="row mb-3 align-items-center">
                 <div class="col-3">
-                    <img src="{{ author.picture }}" class="avatar avatar-medium" alt="avatar de {{ author.fullName }}">
+                    <a href="{{pathAuthor}}">
+                        <img src="{{ author.picture }}" class="avatar avatar-medium" alt="avatar de {{ author.fullName }}">
+                    </a>
                 </div>
                 <div class="col">
-                    <h3>{{ author.fullName }}</h3>
-                    <span class="badge badge-primary">{{ author.ads | length }} annonces</span>
+                    <a href="{{pathAuthor}}">
+                        <h3>{{ author.fullName }}</h3>
+                    </a>
+
+                    <a href="{{pathAuthor}}">
+                        <span class="badge badge-primary">{{ author.ads | length }} annonces</span>
+                    </a>
+                    
                 </div>
             </div>
             {{ author.description | raw }}
