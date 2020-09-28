@@ -53,15 +53,15 @@ class AdController extends AbstractController
             $ad->setAuthor($this->getUser());
 
             $manager->persist($ad);
-            $manager->flush(); 
+            $manager->flush();
 
             $this->addFlash(
-                'success', 
-                "l'annonce <strong>".$ad->getTitle()."</strong> à bien été enregistrer !"
-            ); 
+                'success',
+                "l'annonce <strong>" . $ad->getTitle() . "</strong> à bien été enregistrer !"
+            );
 
             return $this->redirectToRoute('ads_show', [
-                'slug' => $ad->getSlug() 
+                'slug' => $ad->getSlug()
             ]);
         }
 
@@ -79,8 +79,9 @@ class AdController extends AbstractController
      * 
      * @return Response
      */
-    public function editAd(Ad $ad, Request $request, EntityManagerInterface $manager){
- 
+    public function editAd(Ad $ad, Request $request, EntityManagerInterface $manager)
+    {
+
         $form = $this->createForm(AdType::class, $ad);
 
         //Manage the HTTP Request in connection with the form
@@ -95,15 +96,15 @@ class AdController extends AbstractController
             }
 
             $manager->persist($ad);
-            $manager->flush(); 
+            $manager->flush();
 
             $this->addFlash(
-                'success', 
-                "les modifications de l'annonce <strong>".$ad->getTitle()."</strong> ont bien été enregistrer !"
-            ); 
+                'success',
+                "les modifications de l'annonce <strong>" . $ad->getTitle() . "</strong> ont bien été enregistrer !"
+            );
 
             return $this->redirectToRoute('ads_show', [
-                'slug' => $ad->getSlug() 
+                'slug' => $ad->getSlug()
             ]);
         }
 
@@ -124,5 +125,27 @@ class AdController extends AbstractController
         return $this->render('ad/show.html.twig', [
             'ad' => $ad
         ]);
+    }
+
+    /**
+     * For delete an Ad
+     * 
+     * @Route("/ads/{slug}/delete", name="ads_delete") 
+     * @Security("is_granted('ROLE_USER') and user === ad.getAuthor()", message="Si vous êtes le propriétaire ce cette annonce, veuillez vous connecter avec le même compte que vous avez utilisé pour la poster.")
+     * 
+     * @return Response
+     */
+    public function deleteAd(Ad $ad, EntityManagerInterface $manager)
+    {
+        $manager->remove($ad);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "l'annonce <strong>{$ad->getTitle()}</strong> a bien été supprimée."
+        );
+        
+        return $this->redirectToRoute('ads_index');
+
     }
 }
