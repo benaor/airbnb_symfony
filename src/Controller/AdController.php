@@ -6,9 +6,11 @@ use App\Entity\Ad;
 use App\Form\AdType;
 use App\Repository\AdRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdController extends AbstractController
 {
@@ -29,6 +31,7 @@ class AdController extends AbstractController
     /**
      * For create new Ads
      * @Route("/ads/new", name="ads_new")
+     * @IsGranted("ROLE_USER")
      */
     public function newAd(Request $request, EntityManagerInterface $manager)
     {
@@ -70,7 +73,9 @@ class AdController extends AbstractController
 
     /**
      * For display the edit form
+     * 
      * @Route("/ads/{slug}/edit", name="ads_edit") 
+     * @Security("is_granted('ROLE_USER') and user === ad.getAuthor()", message="Si vous êtes le propriétaire ce cette annonce, veuillez vous connecter avec le même compte que vous avez utilisé pour la poster.")
      * 
      * @return Response
      */

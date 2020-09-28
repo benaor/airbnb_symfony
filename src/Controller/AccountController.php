@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\PasswordUpdate;
 use App\Entity\User;
 use App\Form\AccountType;
-use App\Form\PasswordUpdateType;
+use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
+use App\Form\PasswordUpdateType;
+use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -90,6 +91,7 @@ class AccountController extends AbstractController
      * For edit User profil and informations
      * 
      * @Route("/account/profile", name="account_profil")
+     * @IsGranted("ROLE_USER")
      * 
      * @return Response
      */
@@ -119,6 +121,7 @@ class AccountController extends AbstractController
      * For change User password
      * 
      * @Route("/account/change-password", name="account_password")
+     * @IsGranted("ROLE_USER")
      * 
      * @return Response
      */
@@ -164,11 +167,13 @@ class AccountController extends AbstractController
     /**
      * For Display Profil Of Connected User
      * 
-     * @Route("/account/", name="account_index")
+     * @Route("/account", name="account_index")
+     * @IsGranted("ROLE_USER")
      * 
      * @return Response
      */
-    public function myAccount(){
+    public function myAccount()
+    {
         return $this->render('user/index.html.twig', [
             'user' => $this->getUser()
         ]);
