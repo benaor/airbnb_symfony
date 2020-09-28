@@ -6,11 +6,17 @@
         <p>{{ ad.introduction }}</p>
         <p class="h2">
             <strong>{{ ad.rooms }}
-				chambres
-			</strong> pour
+                chambres
+            </strong> pour
             <strong>{{ ad.price }}€</strong> par nuit
         </p>
         <a href="#" class="btn btn-primary">Reservez !</a>
+
+        {% if app.user and app.user == ad.author %}
+            <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-warning">Modifier l'annonce</a>
+        {% endif %}
+
+
     </div>
 </div>
 <div class="container">
@@ -20,7 +26,8 @@
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     {% for image in ad.images %}
-                    <li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index0 }}" class="{% if loop.first %}active{% endif %}"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index0 }}"
+                        class="{% if loop.first %}active{% endif %}"></li>
                     {% endfor %}
                 </ol>
                 <div class="carousel-inner">
@@ -53,7 +60,8 @@
             <div class="row mb-3 align-items-center">
                 <div class="col-3">
                     <a href="{{pathAuthor}}">
-                        <img src="{{ author.picture }}" class="avatar avatar-medium" alt="avatar de {{ author.fullName }}">
+                        <img src="{{ author.picture }}" class="avatar avatar-medium"
+                            alt="avatar de {{ author.fullName }}">
                     </a>
                 </div>
                 <div class="col">
@@ -64,7 +72,7 @@
                     <a href="{{pathAuthor}}">
                         <span class="badge badge-primary">{{ author.ads | length }} annonces</span>
                     </a>
-                    
+
                 </div>
             </div>
             {{ author.description | raw }}
