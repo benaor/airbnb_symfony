@@ -14,7 +14,7 @@
 
         {% if app.user and app.user == ad.author %}
             <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-warning">Modifier l'annonce</a>
-            <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger">supprimer l'annonce</a>
+            <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger" onclick="return confirm('êtes vous sûre de vouloir supprimer l\'annonce : {{ad.title}} ?')">supprimer l'annonce</a>
         {% endif %}
 
 
