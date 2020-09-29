@@ -3,21 +3,18 @@
 namespace App\Form;
 
 use App\Entity\Booking;
-use Symfony\Component\Form\AbstractType;
+use App\Form\ApplicationType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BookingType extends AbstractType
+class BookingType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('startDate')
-            ->add('endDate')
-            ->add('createdAt')
-            ->add('amount')
-            ->add('booker')
-            ->add('ad')
+            ->add('startDate', DateType::class, $this->getConfiguration("Date d'arrivée", "Selectionnez votre date d'arrivée"))
+            ->add('endDate', DateType::class, $this->getConfiguration("Date de départ", "Selectionnez votre date de départ"))
         ;
     }
 
