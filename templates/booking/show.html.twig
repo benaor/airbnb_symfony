@@ -12,6 +12,19 @@
 
 <div class="container">
     <h1>Votre reservation n° {{booking.id}}</h1>
+
+    {% if app.request.query.get('withAlert') %}
+    <div class="alert alert-success">
+        <h4 class="alert alert-heading">Bravo !</h4>
+
+        <p> Votre reservation aupres de <strong> <a href="{{pathAuthor}}">
+                    {{ author.fullName }}
+                </a></strong>pour l'annonce <strong><a href="{{pathAd}}">
+                    {{ ad.title }}
+                </a></strong> à bien été enregistré.
+        </p>
+    </div>
+    {% endif %}
     <div class="row">
         <div class="col">
             <div class="alert alert-light">
@@ -27,7 +40,7 @@
                     <dd class="col-md-8">{{ booking.duration }}</dd>
                     <dt class="col-md-4">Montant total</dt>
                     <dd class="col-md-8">{{ booking.amount }}€ (soit {{ ad.price }}€/nuit)</dd>
-                    <dt class="col-md-4">Commentaire :  </dt>
+                    <dt class="col-md-4">Commentaire : </dt>
                     <dd class="col-md-8">{{ booking.comment }}</dd>
                 </dl>
 
@@ -41,7 +54,7 @@
 
                     <div class="col-9">
                         <h4>
-                            <a href="{{pathAuthor}}" >
+                            <a href="{{pathAuthor}}">
                                 {{ author.fullName }}
                             </a>
                         </h4>
@@ -62,7 +75,7 @@
                 </h4>
 
                 <img src="{{ad.coverImage}}" alt="image de {{ad.title}}" class="img-fluid">
-                {{ad.content|raw}} 
+                {{ad.content|raw}}
 
                 <a href="{{pathAd}}" class="btn btn-primary">Plus d'informations</a>
             </div>
