@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BookingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\PrePersist;
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)
@@ -57,6 +58,8 @@ class Booking
 
     /**
      * Assigns the creation date and the total amount of the reservation
+     * 
+     * @ORM\PrePersist
      */
     public function prepersist(){
         if(empty($this->createdAt)){
