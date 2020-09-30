@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Booking;
 use App\Form\ApplicationType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,6 +16,7 @@ class BookingType extends ApplicationType
         $builder
             ->add('startDate', DateType::class, $this->getConfiguration("Date d'arrivée", "Selectionnez votre date d'arrivée", ["widget" => "single_text"]))
             ->add('endDate', DateType::class, $this->getConfiguration("Date de départ", "Selectionnez votre date de départ", ["widget" => "single_text"]))
+            ->add('comment', TextareaType::class, $this->getConfiguration('commentaire', "si vous souhaitez ajouter un message a votre reservation, c'est ici !"))
         ;
     }
 
