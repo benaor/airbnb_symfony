@@ -18,6 +18,15 @@
     </div>
     <H4>Montant du séjour : <span id="amount">...</span>€</H4>
     <span id="days">?</span> nuit(s) à {{ad.price}}€/nuit.
+    <hr>
+    <h2>Vous souhaitez ajouter quelque chose ?</h2>
+    {{ form_row(form.comment) }}
+    <hr>
+
+    <div class="text-center">
+        <h2>C'est presque terminé ...</h2> <br>
+        <button type="submit" class="btn btn-success text-center">Je reserve ce logement</button>
+    </div>
     {{form_end(form)}}
 </div>
 {% endblock %}
