@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation n_{{booking.id}}{% endblock %}
+
+{% block body %}
+
+{# Personnal variable #}
+{% set ad         = booking.ad %}
+{% set author     = ad.author %}
+{% set pathAuthor = path('user_show', {'slug': author.slug }) %}
+{% set pathAd     = path('ads_show', {'slug': ad.slug }) %}
+
+<div class="container">
+    <h1>Votre reservation n° {{booking.id}}</h1>
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-light">
+                <h2>Détails</h2>
+                <dl class="row">
+                    <dt class="col-md-4">Numéro</dt>
+                    <dd class="col-md-8">{{ booking.id }}</dd>
+                    <dt class="col-md-4">Date d'arrivée</dt>
+                    <dd class="col-md-8">{{ booking.startDate | date("d/m/Y") }}</dd>
+                    <dt class="col-md-4">Date de départ</dt>
+                    <dd class="col-md-8">{{ booking.endDate | date("d/m/Y") }}</dd>
+                    <dt class="col-md-4">Nombre de nuit</dt>
+                    <dd class="col-md-8">{{ booking.duration }}</dd>
+                    <dt class="col-md-4">Montant total</dt>
+                    <dd class="col-md-8">{{ booking.amount }}€ (soit {{ ad.price }}€/nuit)</dd>
+                    <dt class="col-md-4">Commentaire :  </dt>
+                    <dd class="col-md-8">{{ booking.comment }}</dd>
+                </dl>
+
+                <hr>
+
+                <H2 class="alert alert-heading">Votre hôte</H2>
+                <div class="row mb-3">
+                    <div class="col-3">
+                        <img src="{{author.picture}}" alt="Avatar de {{author.fullName}}" class="avatar avatar-medium">
+                    </div>
+
+                    <div class="col-9">
+                        <h4>
+                            <a href="{{pathAuthor}}" >
+                                {{ author.fullName }}
+                            </a>
+                        </h4>
+
+                        <span class="badge badge-primary">{{author.ads|length}} Annonces </span>
+                    </div>
+                </div>
+                {{author.description|raw}}
+                <a href="{{pathAuthor}}" class="btn btn-primary">Visiter le profil de {{author.firstName}}</a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-light">
+                <h2 class="alert-heading">Votre hébergement</h2>
+
+                <h4>
+                    <a href="{{pathAd}}">{{ad.title}}</a>
+                </h4>
+
+                <img src="{{ad.coverImage}}" alt="image de {{ad.title}}" class="img-fluid">
+                {{ad.content|raw}} 
+
+                <a href="{{pathAd}}" class="btn btn-primary">Plus d'informations</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
