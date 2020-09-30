@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\AdRepository;
+use DateTime;
 use Cocur\Slugify\Slugify;
+use App\Repository\AdRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -117,6 +118,32 @@ class Ad
         }
     }
 
+    /**
+     * allows you to obtain a table of days that are not available for this accommodation
+     *
+     * @return array an Array of object DateTime represents the occupations days
+     */
+    public function getNotAvailableDays(){
+        $notAvailableDays = [];
+
+        foreach ($this->bookings as $booking) {
+            
+            $startDateTimestamp = $booking->getStartDate()->getTimestamp();
+            $endDateTimestamp   = $booking->getEndDate()->getTimestamp();
+            $daysOnMilliseconds = 24 * 60 * 60;
+
+            $resultat = range($startDateTimestamp, $endDateTimestamp, $daysOnMilliseconds);
+
+            $days     = array_map(function ($daysTimestamp) {
+                return new \DateTime(date('Y-m-d', $daysTimestamp));
+            }, $resultat);
+                         
+            $notAvailableDays = array_merge($notAvailableDays, $days);
+        }
+
+        return $notAvailableDays;
+    }
+ 
     public function getId(): ?int
     {
         return $this->id;

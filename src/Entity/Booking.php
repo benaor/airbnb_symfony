@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\BookingRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PrePersist;
+use App\Repository\BookingRepository;
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)
@@ -61,22 +62,70 @@ class Booking
      * 
      * @ORM\PrePersist
      */
-    public function prepersist(){
-        if(empty($this->createdAt)){
+    public function prepersist()
+    {
+        if (empty($this->createdAt)) {
             $this->createdAt = new \DateTime();
         }
 
-        if(empty($this->amount)){
+        if (empty($this->amount)) {
             $this->amount = $this->ad->getPrice() * $this->getDuration();
         }
     }
 
     /**
+     * indicates if the date is available
+     *
+     * @return boolean
+     */
+    public function isBookabledate()
+    {
+        $notAvailableDays = $this->ad->getNotAvailableDays();
+        $bookingDays      = $this->getDays();
+
+        $formatDay = function ($day) {
+            return $day->format('Y-m-d');
+        };
+
+        $days         = array_map($formatDay, $bookingDays);
+        $notAvailable = array_map($formatDay, $notAvailableDays);
+
+        foreach ($days as $day){
+            if (array_search($day, $notAvailable) !== false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * retrieve the days corresponding to the reservation
+     * @return array an array object DateTime represent they days of reservation
+     */
+    public function getDays()
+    {
+
+        $startDaysTimestamp = $this->startDate->getTimestamp();
+        $endDaysTimestamp   = $this->endDate->getTimestamp();
+        $daysOnMilliseconds = 24 * 60 * 60;
+
+        $resultat = range($startDaysTimestamp, $endDaysTimestamp, $daysOnMilliseconds);
+
+        $days = array_map(function ($daysTimestamp) {
+            return new \DateTime(date('Y-m-d', $daysTimestamp));
+        }, $resultat);
+
+        return $days;
+    }
+
+    /**
      * calculation of the reservation duration (in days)
      */
-    public function getDuration(){
+    public function getDuration()
+    {
         $dateDiff = $this->endDate->diff($this->startDate);
-        return $dateDiff->days; 
+        return $dateDiff->days;
     }
 
     public function getId(): ?int
