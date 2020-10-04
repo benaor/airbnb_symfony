@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PrePersist;
 use App\Repository\BookingRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)
@@ -35,11 +37,13 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThan("today", message="Vous ne pouvez pas arriver avant ... Aujourdhui !")
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThan(propertyPath="startDate", message="Vous ne pouvez pas partir avant d'être arrivé!")
      */
     private $endDate;
 
