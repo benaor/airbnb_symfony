@@ -53,7 +53,8 @@
                     {% for day in ad.notAvailableDays %}
                         "{{ day.format('d/m/Y') }}",
                     {% endfor %}
-                ]
+                ],
+                startDate: new Date()
             });
         })
 
