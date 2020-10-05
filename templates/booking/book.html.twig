@@ -23,13 +23,15 @@
             <div class="col">{{ form_row(form.startDate) }}</div>
             <div class="col">{{ form_row(form.endDate) }}</div>
         </div>
+        <div class="text-center">
+            <H4>Montant du séjour : <span id="amount">...</span>€</H4>
+            <span id="days">?</span> nuit(s) à {{ad.price}}€/nuit.
+        </div>
+        <hr>
+        <h4>Vous souhaitez ajouter quelque chose ?</h4>
+        {{ form_row(form.comment) }}
+        <hr>
     </div>
-    <H4>Montant du séjour : <span id="amount">...</span>€</H4>
-    <span id="days">?</span> nuit(s) à {{ad.price}}€/nuit.
-    <hr>
-    <h2>Vous souhaitez ajouter quelque chose ?</h2>
-    {{ form_row(form.comment) }}
-    <hr>
 
     <div class="text-center">
         <h2>C'est presque terminé ...</h2> <br>
@@ -56,7 +58,36 @@
                 ],
                 startDate: new Date()
             });
-        })
+
+            $("#booking_startDate, #booking_endDate").on('change', calculAmount);
+
+        });
+
+        function calculAmount(){
+
+            const endDate = new Date(
+                $('#booking_endDate')
+                    .val()
+                    .replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1')
+            );
+
+            const startDate = new Date(
+                $('#booking_startDate')
+                    .val()
+                    .replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1')
+            );
+
+            if(startDate && endDate && startDate < endDate){
+                const dayTime = 24 * 60 * 60 * 1000;
+
+                const interval = endDate.getTime() - startDate.getTime();
+                const numberOfDays = interval / dayTime;
+                const amountPrice = numberOfDays * {{ ad.price }};
+                $("#days").text(numberOfDays);
+                $("#amount").text(amountPrice.toLocaleString('fr-FR'));
+            }
+        }
+
 
     </script>
 {% endblock javascripts %}
