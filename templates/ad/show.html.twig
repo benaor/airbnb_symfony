@@ -13,8 +13,10 @@
         <a href="{{ path('booking_create', {'slug': ad.slug }) }}" class="btn btn-primary">Reservez !</a>
 
         {% if app.user and app.user == ad.author %}
-            <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-warning">Modifier l'annonce</a>
-            <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger" onclick="return confirm('êtes vous sûre de vouloir supprimer l\'annonce : {{ad.title}} ?')">supprimer l'annonce</a>
+        <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-warning">Modifier l'annonce</a>
+        <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger"
+            onclick="return confirm('êtes vous sûre de vouloir supprimer l\'annonce : {{ad.title}} ?')">supprimer
+            l'annonce</a>
         {% endif %}
 
 
@@ -57,30 +59,35 @@
             <hr>
 
             {% if ad.comments|length > 0 %}
-                <h2 class="mb-3">Commentaire de nos voyageurs</h2>
-                {% for comment in ad.comments|sort %}
-                    <div class="bg-light rounded mb-3 py-3 px-3">
-                        <strong>
-                            ({{comment.createdAt|date("m/d/Y H:m")}}) {{comment.author.fullName}} à dit :
-                            <blockquote>
-                                {{comment.content}}
-                            </blockquote>
-                            <strong>note donnée par {{comment.author.fullName}} :</strong>
+            <h2 class="mb-3">Commentaire de nos voyageurs</h2>
+            <div class="alert alert-info">
+                <h4 class="alert-heading text-center">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            Note global donnée par nos voyageurs : <br>
+                            <small>Note moyenne calculé sur {{ ad.comments|length}} avis !</small>
+                        </div>
 
-                            <span class="rating">
-                                {% for i in 1..5 %}
-                                    {% if i <= comment.rating %}
-                                        <i class="fas fa-star"></i>
-                                    {% else %}
-                                        <i class="far fa-star"></i>
-                                    {% endif %}
-                                {% endfor %}
-                            </span>
-                        </strong>
+                        <div class="col">
+                            {% include "includes/rating.html.twig" with {'rating': 4} %}
+                        </div>
                     </div>
-                {% endfor %}
+                </h4>
+            </div>
+            {% for comment in ad.comments|sort %}
+            <div class="bg-light rounded mb-3 py-3 px-3">
+                <strong>
+                    ({{comment.createdAt|date("m/d/Y H:m")}}) {{comment.author.fullName}} à dit :
+                    <blockquote>
+                        {{comment.content}}
+                    </blockquote>
+                    <strong>note donnée par {{comment.author.fullName}} :</strong>
+                    {% include "includes/rating.html.twig" with {'rating': comment.rating} %}
+                </strong>
+            </div>
+            {% endfor %}
             {% else %}
-                <h2>Cette annonce n'a pas encore été noté ni commenté.</h2>
+            <h2>Cette annonce n'a pas encore été noté ni commenté.</h2>
             {% endif %}
 
         </div>
