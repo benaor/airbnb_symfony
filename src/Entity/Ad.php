@@ -125,6 +125,24 @@ class Ad
     }
 
     /**
+     * Calculate Rating Moyenne
+     *
+     * @return Response
+     */
+    public function getAvgRatings(){
+        $sum = array_reduce($this->comments->toArray(), function($total, $comment){
+            return $total + $comment->getRating();
+        }, 0);
+
+        if (count($this->comments) > 0) {
+            $moyenne = $sum / count($this->comments);
+            return $moyenne; 
+        }
+
+        return 0;
+    }
+
+    /**
      * allows you to obtain a table of days that are not available for this accommodation
      *
      * @return array an Array of object DateTime represents the occupations days
