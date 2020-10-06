@@ -134,7 +134,7 @@ class AppFixtures extends Fixture
                     $createdAt = $faker->dateTimeBetween('-6 mounths');
 
                     $comment->setCreatedAt($createdAt)
-                            ->setRating(mt_rand())
+                            ->setRating(mt_rand(0, 5))
                             ->setContent($faker->paragraph())
                             ->setAuthor($booker)
                             ->setAd($ad);
