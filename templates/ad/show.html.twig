@@ -53,6 +53,27 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
+
+            <hr>
+
+            {% if ad.comments|length > 0 %}
+                <h2 class="mb-3">Commentaire de nos voyageurs</h2>
+                {% for comment in ad.comments|sort %}
+                    <div class="bg-light rounded mb-3 py-3 px-3">
+                        <strong>
+                            ({{comment.createdAt|date("m/d/Y H:m")}}) {{comment.author.fullName}} à dit :
+                            <blockquote>
+                                {{comment.content}}
+                            </blockquote>
+                            <strong>note donnée par {{comment.author.fullName}} :</strong>
+                            {{comment.rating}}
+                        </strong>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2>Cette annonce n'a pas encore été noté ni commenté.</h2>
+            {% endif %}
+
         </div>
         <div class="col">
             {% set author = ad.author %}
