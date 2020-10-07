@@ -11,7 +11,7 @@
 {% set pathAd     = path('ads_show', {'slug': ad.slug }) %}
 
 <div class="container">
-    <h1>Votre reservation n° {{booking.id}}</h1>
+    <h1 class="my-5">Votre reservation n° {{booking.id}}</h1>
 
     {% if app.request.query.get('withAlert') %}
     <div class="alert alert-success">
@@ -39,7 +39,7 @@
                     <dt class="col-md-4">Nombre de nuit</dt>
                     <dd class="col-md-8">{{ booking.duration }}</dd>
                     <dt class="col-md-4">Montant total</dt>
-                    <dd class="col-md-8">{{ booking.amount }}€ (soit {{ ad.price }}€/nuit)</dd>
+                    <dd class="col-md-8">{{ booking.amount|number_format(2, ',', ' ') }}€ (soit {{ ad.price|number_format(2, ',', ' ') }}€/nuit)</dd>
 
                     {% if booking.comment != NULL %}
                         <dt class="col-md-4">Commentaire : </dt>

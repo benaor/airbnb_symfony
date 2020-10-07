@@ -8,7 +8,7 @@
             <strong>{{ ad.rooms }}
                 chambres
             </strong> pour
-            <strong>{{ ad.price }}€</strong> par nuit
+            <strong>{{ ad.price|number_format(2, ',', ' ') }}€</strong> par nuit
         </p>
         <a href="{{ path('booking_create', {'slug': ad.slug }) }}" class="btn btn-primary">Reservez !</a>
 

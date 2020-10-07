@@ -8,7 +8,7 @@
 
 
 <div class="container">
-    <h1>Mes reservations</h1>
+    <h1 class="my-5">Mes reservations</h1>
     <div class="alert alert-info mt-5">
         <p>Retrouvez toutes vos réservations passées et à venir.</p>
     </div>
@@ -33,7 +33,7 @@
                 <h4>{{ ad.title }}</h4>
                 <p>
                     Réservation <strong>n°{{booking.id}}</strong><br>
-                    du {{booking.startDate|date('d/m/Y')}} au {{booking.endDate|date('d/m/Y')}} pour <strong>{{booking.amount}}€</strong>
+                    du {{booking.startDate|date('d/m/Y')}} au {{booking.endDate|date('d/m/Y')}} pour <strong>{{booking.amount|number_format(2, ',', ' ')}}€</strong>
                     <a href="{{ path('booking_show', {'id': booking.id}) }}" class="btn btn-info">Plus d'informations</a>
                 </p>
             </div>

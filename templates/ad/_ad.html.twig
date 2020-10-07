@@ -7,7 +7,7 @@
         <div class="card-header text-center">
             {{ad.rooms}}
             Chambres,
-            <strong>{{ad.price}}€/nuit</strong>
+            <strong>{{ad.price|number_format(2, ',', ' ')}}€/nuit</strong>
             <br>
 
             {% if ad.comments|length > 0 %}
@@ -29,7 +29,7 @@
                 </a>
             </h4>
             <p>{{ad.introduction}}</p>
-            <a href="{{ pathSlug }}" class="btn btn-secondary">
+            <a href="{{ pathSlug }}" class="btn btn-primary float-right">
                 en savoir plus !</a>
             {% if app.user and app.user == ad.author %}
             <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-warning">Modifier l'annonce</a>
