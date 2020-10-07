@@ -68,7 +68,7 @@ class BookingController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $comment->setAd($booking->getAd())
                     ->setAuthor($this->getUser());
 

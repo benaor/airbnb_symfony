@@ -88,10 +88,19 @@
     <div class="alert alert-light">
         <h2 class="alert-heading text-center">Votre avis compte !</h2>
         {% if date() > date(booking.endDate) %}
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button class="btn btn-success">Valider le commentaire</button>
-            {{ form_end(form) }}
+            {% set comment = booking.ad.commentFromAuthor(app.user) %}
+            {% if comment is not null %}
+                <blockquote>
+                    {{comment.content}}
+                </blockquote>
+                <strong>Note :</strong>
+                {% include "includes/rating.html.twig" with {'rating': comment.rating} %}
+                    {% else %}
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-success">Valider le commentaire</button>
+                {{ form_end(form) }}
+            {% endif %}
         {% else %}
             <p>Vous pourrez donner votre avis lorsque vous aurez terminé votre séjour.</p>
         {% endif %}
