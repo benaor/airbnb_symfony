@@ -125,10 +125,22 @@ class Ad
     }
 
     /**
-     * Calculate Rating Moyenne
+     * retrieve an author's comment about an Ad
      *
      * @return Response
      */
+    public function getCommentFromAuthor(User $author){
+        foreach ($this->comments as $comment) {
+            if($comment->getAuthor() === $author) return $comment;
+        }
+        return null;
+    }
+
+    /**
+     * Calculate Rating Moyenne
+     *
+     * @return Float
+     */ 
     public function getAvgRatings(){
         $sum = array_reduce($this->comments->toArray(), function($total, $comment){
             return $total + $comment->getRating();
