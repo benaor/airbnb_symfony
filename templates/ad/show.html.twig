@@ -74,14 +74,14 @@
                     </div>
                 </h4>
             </div>
-            {% for comment in ad.comments|sort %}
+            {% for comment in ad.comments %}
             <div class="bg-light rounded mb-3 py-3 px-3">
                 <strong>
-                    ({{comment.createdAt|date("m/d/Y H:m")}}) {{comment.author.fullName}} à dit :
+                    ({{comment.createdAt|date("m/d/Y H:m")}}) <strong>{{comment.author.firstName}}</strong> à dit :
                     <blockquote>
                         {{comment.content}}
                     </blockquote>
-                    <strong>note donnée par {{comment.author.fullName}} :</strong>
+                    <strong>note donnée :</strong>
                     {% include "includes/rating.html.twig" with {'rating': comment.rating} %}
                 </strong>
             </div>
