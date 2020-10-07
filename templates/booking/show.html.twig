@@ -85,7 +85,7 @@
             </div>
         </div>
     </div>
-    <div class="alert alert-light">
+    <div class="alert alert-light" id="comment">
         <h2 class="alert-heading text-center">Votre avis compte !</h2>
         {% if date() > date(booking.endDate) %}
             {% set comment = booking.ad.commentFromAuthor(app.user) %}

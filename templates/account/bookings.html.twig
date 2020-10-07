@@ -15,9 +15,18 @@
     
     {% for booking in app.user.bookings %}
     {% set ad = booking.ad %}
-        <div class="row my-3">
+        <div class="row my-4">
             <div class="col-4">
                 <img src="{{ ad.coverImage }}" alt="image de {{ ad.title }}" class="img-fluid">
+                <div class="mt-1">
+                    {% set comment = ad.commentFromAuthor(app.user) %}
+                    {% if comment is not null %}
+                        <strong>Note donné : </strong>
+                        {% include "includes/rating.html.twig" with {'rating': comment.rating} %}
+                    {% else %}
+                        <a href="{{ path('booking_show', {'id': booking.id}) }}#comment">Donner mon avis</a>
+                    {% endif %}
+                </div>
             </div>
 
             <div class="col-8">
