@@ -88,7 +88,10 @@
     <div class="alert alert-light">
         <h2 class="alert-heading text-center">Votre avis compte !</h2>
         {% if date() > date(booking.endDate) %}
-            {# waiting the form ....  #}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-success">Valider le commentaire</button>
+            {{ form_end(form) }}
         {% else %}
             <p>Vous pourrez donner votre avis lorsque vous aurez terminé votre séjour.</p>
         {% endif %}
