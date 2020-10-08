@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - {% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/app.css">
+
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+
+
+    {% include "admin/includes/header.html.twig" %}
+    {# {% include "admin/includes/flash.html.twig" %} #}
+
+    {% block body %}{% endblock %}
+
+    {% include "admin/includes/footer.html.twig" %}
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/7c09c4a3ab.js" crossorigin="anonymous"></script>
+    {% block javascripts %}{% endblock %}
+
+</body>
+
+</html>
