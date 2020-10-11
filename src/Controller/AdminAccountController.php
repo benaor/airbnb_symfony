@@ -8,11 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminAccountController extends AbstractController
 {
     /**
-     * @Route("/admin/account", name="admin_account")
+     * @Route("/admin/login", name="admin_account_login")
      */
-    public function index()
+    public function login()
     {
-        return $this->render('admin/account/index.html.twig', [
+        return $this->render('admin/account/login.html.twig', [
             'controller_name' => 'AdminAccountController',
         ]);
     }
