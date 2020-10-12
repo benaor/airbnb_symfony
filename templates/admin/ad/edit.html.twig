@@ -4,6 +4,8 @@
 Modification de l'annonce {{ad.id}}
 {% endblock title %}
 
+{% form_theme form _self %}
+
 {% block body %}
 <div class="container">
     <h1>Modification de l'annonce {{ad.title}}</h1>
@@ -101,10 +103,52 @@ Modification de l'annonce {{ad.id}}
 
             </div>
         </div>
+    </div>
+    {{form_end (form)}}
+</div>
 
-        {{form_end (form)}}
+{% endblock body %}
+
+{% block _ad_images_widget %}
+{{form_widget(form)}}
+{% endblock _ad_images_widget %}
+
+{% block _ad_images_entry_row %}
+<div id="block_{{id}}">
+    {{form_widget(form)}}
+</div>
+{% endblock _ad_images_entry_row %}
+
+{% block _ad_images_entry_widget %}
+<div class="row align-items-center mb-3">
+    <div class="col-4">
+        {% if value %}
+        <img src="{{value.url}}" alt="" class="img-fluid p-1">
+        {% endif %}
 
     </div>
+    <div class="col-6">
+        {{form_row(form.caption)}}
+        {{form_row(form.url)}}
+    </div>
 
+    <div class="col-2">
+        <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{id}}">
+            <i class="fas fa-trash"></i>
+        </button>
+    </div>
+</div>
+{% endblock _ad_images_entry_widget %}
 
-    {% endblock body %}
+{% block javascripts %}
+
+<script>
+    $(document).ready(function () {
+        $('[data-action="delete"]').on('click', function () {
+            const target = this.dataset.target;
+            $(target).remove();
+        })
+    })
+</script>
+
+{% endblock javascripts %}
