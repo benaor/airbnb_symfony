@@ -1,9 +1,67 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}Hello AdminAccountController!{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion a l'administration</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/7c09c4a3ab.js" crossorigin="anonymous"></script>
 
-{% block body %}
-<div class="container">
-    
-</div>
-{% endblock %}
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .card {
+            margin-top: 20%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-header">
+                <h4 class="card-title text-center">
+                    <i class="fas fa-lock"></i>
+                    Connexion à l'administration
+                </h4>
+            </div>
+
+            <div class="card-body">
+                {% if error %}
+                <div class="alert alert-danger text-center align-items-center">
+                    <h3>Accès refusé !</h3>
+                </div>
+                {% endif %}
+                <form method="post">
+                    <div class="form-group">
+
+                        <label for="_username">IDENTIFIANT</label>
+                        <input type="text" class="form-control" placeholder="Votre identifiant" name="_username" value="{{username}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="_password">Mot de passe</label>
+                        <input type="password" class="form-control" placeholder="Votre mot de passe" name="_password">
+                    </div>
+                    <div class="form-group d-flex justify-content-around">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-lock-open"></i>
+                            Connexion
+                        </button>
+                        <a href="{{path('homePage')}}" class="btn btn-link">
+                            <i class="fas fa-arrow-circle-left"></i>
+                            Retour au site
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
