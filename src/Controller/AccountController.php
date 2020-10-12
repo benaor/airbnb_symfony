@@ -44,7 +44,7 @@ class AccountController extends AbstractController
      * 
      * @Route("/logout", name="account_logout")
      * 
-     * @return Response
+     * @return void
      */
     public function logout()
     {
@@ -176,7 +176,7 @@ class AccountController extends AbstractController
     {
         return $this->render('user/index.html.twig', [
             'user' => $this->getUser()
-        ]);
+        ]); 
     }
 
     /**

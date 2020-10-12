@@ -25,7 +25,7 @@ security:
                 check_path: admin_account_login
 
             logout: 
-                path: account_logout
+                path: admin_account_logout
                 target: homePage
         main:
             anonymous: true
