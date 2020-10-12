@@ -1,0 +1,10 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}modification du commentaires n°{{comment.id}}{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="my-5">Modifier le commentaire n°{{comment.id}}</h1>
+    {{form(form)}}
+</div>
+{% endblock %}
