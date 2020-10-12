@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h1>Gestion des commentaires</h1>
+    <h1 class="my-5">Gestion des commentaires</h1>
     <table class="table table-hover">
         <thead>
             <th>Id</th>
@@ -20,9 +20,9 @@
             <tr>
                 <td>{{comment.id}}</td>
                 <td>{{comment.createdAt|date('d/m/Y H:i')}}</td>
-                <td>{{comment.author.fullName}}</td>
+                <td> <img src="{{comment.author.picture}}" alt="" class="avatar avatar-mini"> {{comment.author.fullName}}</td>
                 <td>{{comment.content}}</td>
-                <td>{{comment.rating}}</td>
+                <td> <span class="badge bagde-dark"> {{comment.rating}} </span></td>
                 <td>{{comment.ad.title}}</td>
                 <td>
                     <a href="" class="btn btn-primary">
