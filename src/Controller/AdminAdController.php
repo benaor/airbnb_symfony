@@ -35,7 +35,7 @@ class AdminAdController extends AbstractController
         $form = $this->createForm(AdType::class, $ad);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($ad);
             $manager->flush();
 
@@ -49,5 +49,38 @@ class AdminAdController extends AbstractController
             'ad' => $ad,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * For delete an Ad
+     * 
+     * @Route("/admin/{id}/delete", name="admin_ads_delete")
+     * 
+     * @param Ad $ad
+     * @param EntityManagerInterface $manager
+     * 
+     * @return Response
+     */
+    public function delete(EntityManagerInterface $manager, Ad $ad)
+    {
+
+        if (count($ad->getBookings()) > 0) {
+
+            $this->addFlash(
+                "warning",
+                "Vous ne pouvez pas supprimer cette annonce car elle possède déjà des réservations"
+            );
+            
+        } else {
+            $title = $ad->getTitle();
+            $manager->remove($ad);
+            $manager->flush();
+
+            $this->addFlash(
+                "success",
+                "L'annonce <strong>{$title}</strong> a bien été supprimé"
+            );
+        }
+        return $this->redirectToRoute("admin_ads_index");
     }
 }
