@@ -23,7 +23,7 @@ class AdminCommentController extends AbstractController
     }
 
     /**
-     * @Route("/admin/comment/{id}/edit", name="admin_comments_edit")
+     * @Route("/admin/comments/{id}/edit", name="admin_comments_edit")
      */
     public function edit(Comment $comment, Request $request, EntityManagerInterface $manager)
     {
@@ -46,5 +46,23 @@ class AdminCommentController extends AbstractController
             'form' => $form->createView(),
             'comment' => $comment
         ]);
+    }
+
+    /**
+     * For delete a comment
+     * @Route("/admin/comments/{id}/delete", name="admin_comments_delete")
+     */
+    public function delete(Comment $comment, EntityManagerInterface $manager)
+    {
+        $title = $comment->getId();
+        $manager->remove($comment);
+        $manager->flush();
+
+        $this->addFlash(
+            "success",
+            "Le commentaire <strong>{$title}</strong> a bien été supprimé"
+        );
+
+        return $this->redirectToRoute("admin_comments_index");
     }
 }

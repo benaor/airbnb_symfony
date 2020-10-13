@@ -54,7 +54,7 @@ class AdminAdController extends AbstractController
     /**
      * For delete an Ad
      * 
-     * @Route("/admin/{id}/delete", name="admin_ads_delete")
+     * @Route("/admin/ads/{id}/delete", name="admin_ads_delete")
      * 
      * @param Ad $ad
      * @param EntityManagerInterface $manager
