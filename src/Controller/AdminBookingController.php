@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Booking;
-use App\Form\BookingType;
+use App\Form\AdminBookingType;
 use App\Repository\BookingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,10 +25,10 @@ class AdminBookingController extends AbstractController
      */
     public function edit(Booking $booking)
     {
-        $form = $this->createForm(BookingType::class, $booking);
+        $form = $this->createForm(AdminBookingType::class, $booking);
 
         return $this->render('admin/booking/edit.html.twig', [
-            'bookings' => $booking,
+            'booking' => $booking,
             'form' => $form->createView()
         ]);
     }
