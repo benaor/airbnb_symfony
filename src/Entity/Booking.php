@@ -66,6 +66,7 @@ class Booking
      * Assigns the creation date and the total amount of the reservation
      * 
      * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function prepersist()
     {

@@ -31,6 +31,8 @@ class AdminBookingController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $booking->setAmount(0); //RaZ for recalcul
+
             $manager->persist($booking);
             $manager->flush();
 
