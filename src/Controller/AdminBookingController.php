@@ -38,6 +38,7 @@ class AdminBookingController extends AbstractController
                 "success",
                 "la reservation n°{$booking->getId()} a bien été modifier"
             );
+
             return $this->redirectToRoute("admin_booking_index");
         }
 
