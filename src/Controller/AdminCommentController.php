@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
-use App\Form\CommentType;
+use App\Form\AdminCommentType;
 use App\Repository\CommentRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminCommentController extends AbstractController
 {
@@ -23,9 +25,22 @@ class AdminCommentController extends AbstractController
     /**
      * @Route("/admin/comment/{id}/edit", name="admin_comments_edit")
      */
-    public function edit(Comment $comment)
+    public function edit(Comment $comment, Request $request, EntityManagerInterface $manager)
     {
-        $form = $this->createForm(CommentType::class, $comment);
+        $form = $this->createForm(AdminCommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($comment);
+            $manager->flush();
+
+            $this->addFlash(
+                "success",
+                "Le commentaire n°{$comment->getId()} a bien été modifier"
+            );
+
+            return $this->redirectToRoute("admin_comments_index");
+        }
 
         return $this->render("admin/comment/edit.html.twig", [
             'form' => $form->createView(),

@@ -3,8 +3,21 @@
 {% block title %}modification du commentaires n°{{comment.id}}{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
+<div class="container">
     <h1 class="my-5">Modifier le commentaire n°{{comment.id}}</h1>
-    {{form(form)}}
+
+    <div class="alert alert-info">
+        <strong>Annonce lié : </strong> {{comment.ad.title}} <br>
+        <strong>Auteur : </strong> {{ comment.author.fullName}} <br>
+        <strong>Date de création </strong> {{comment.createdAt|date('d/m/Y H:i')}}
+    </div>
+
+    {{form_start(form)}}
+    {{form_widget(form)}}
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-check"></i>
+        enregistrer les modifications
+    </button>
+    {{form_end(form)}}
 </div>
 {% endblock %}
