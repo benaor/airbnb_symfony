@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <title>Admin - {% block title %}Welcome!{% endblock %}</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="{{asset('build/app.css')}}">
 
     {% block stylesheets %}{% endblock %}
 </head>
