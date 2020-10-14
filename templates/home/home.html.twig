@@ -5,75 +5,23 @@
 
 {% block body %}
 <div class="container">
-	<div class="jumbotron mt-5">
-		<h1 class="display-3">Bienvenue sur SymfoBNB !</h1>
-		<p class="lead">Nous mettons en relation les propriétaires et les voyageurs qui recherchent a se loger pour leurs séjour à l'étranger.</p>
-		<hr class="my-4">
-		<p>Vous êtes un voyageurs, et vous chercher votre prochain coin de paradis ?</p>
-		<p class="lead">
-			<a class="btn btn-primary btn-lg" href="#" role="button">Voir nos annonces !</a>
-		</p>
-	</div>
+    <div class="jumbotron mt-5">
+        <h1 class="display-3">Bienvenue sur SymfoBNB !</h1>
+        <p class="lead">Nous mettons en relation les propriétaires et les voyageurs qui recherchent a se loger pour
+            leurs séjour à l'étranger.</p>
+        <hr class="my-4">
+        <p>Vous êtes un voyageurs, et vous chercher votre prochain coin de paradis ?</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Voir nos annonces !</a>
+        </p>
+    </div>
 
     <h2 class="h1 my-5">Nos appartements stars</h2>
-    <div class="row"> 
-        <div class="col-md-4">
-            <div class="card bg-light mb-3">
 
-                <div class="card-header text-center">
-                    3 Chambres, <strong>44€/nuit</strong> <br>
-                    <small>Pas encore noté</small>
-                </div>
-
-                <img src="http://placehold.it/1000x400" alt="PhotoDuLogement" style="height: 200px; width: 100%; display: block">
-
-                <div class="card-body">
-                    <h4 class="card-title">Appartement de rêve</h4>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos sint iusto suscipit eveniet blanditiis incidunt excepturi beatae nihil esse odio.</p>
-                    <a href="#" class="btn btn-secondary"> en savoir plus !</a>
-                </div>
-
-            </div> 
-        </div>
-
-                <div class="col-md-4">
-            <div class="card bg-light mb-3">
-
-                <div class="card-header text-center">
-                    3 Chambres, <strong>44€/nuit</strong> <br>
-                    <small>Pas encore noté</small>
-                </div>
-
-                <img src="http://placehold.it/1000x400" alt="PhotoDuLogement" style="height: 200px; width: 100%; display: block">
-
-                <div class="card-body">
-                    <h4 class="card-title">Appartement de rêve</h4>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos sint iusto suscipit eveniet blanditiis incidunt excepturi beatae nihil esse odio.</p>
-                    <a href="#" class="btn btn-secondary"> en savoir plus !</a>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-4">
-            <div class="card bg-light mb-3">
-
-                <div class="card-header text-center">
-                    3 Chambres, <strong>44€/nuit</strong> <br>
-                    <small>Pas encore noté</small>
-                </div>
-
-                <img src="http://placehold.it/1000x400" alt="PhotoDuLogement" style="height: 200px; width: 100%; display: block">
-
-                <div class="card-body">
-                    <h4 class="card-title">Appartement de rêve</h4>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos sint iusto suscipit eveniet blanditiis incidunt excepturi beatae nihil esse odio.</p>
-                    <a href="#" class="btn btn-secondary"> en savoir plus !</a>
-                </div>
-
-            </div>
-        </div>
-
+    <div class="row">
+        {% for data in ads %}
+            {% include "ad/_ad.html.twig" with {'ad': data.annonce} %}
+        {% endfor %}
     </div>
 
     <h2 class="h1 my-5">Nos hôtes stars</h2>
