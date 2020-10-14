@@ -20,7 +20,8 @@
             <tr>
                 <td>{{comment.id}}</td>
                 <td>{{comment.createdAt|date('d/m/Y H:i')}}</td>
-                <td> <img src="{{comment.author.picture}}" alt="" class="avatar avatar-mini"> {{comment.author.fullName}}</td>
+                <td> <img src="{{comment.author.picture}}" alt="" class="avatar avatar-mini">
+                    {{comment.author.fullName}}</td>
                 <td>{{comment.content}}</td>
                 <td> <span class="badge bagde-dark"> {{comment.rating}} </span></td>
                 <td>{{comment.ad.title}}</td>
@@ -36,7 +37,6 @@
             {% endfor %}
         </tbody>
     </table>
-    {% include "admin/includes/pagination.html.twig" with {'route': 'admin_comments_index'} %}
-
+    {{pagination.display}}
 </div>
 {% endblock %}
