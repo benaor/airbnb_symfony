@@ -20,38 +20,29 @@
 
     <div class="row">
         {% for data in ads %}
-            {% include "ad/_ad.html.twig" with {'ad': data.annonce} %}
+        {% include "ad/_ad.html.twig" with {'ad': data.annonce} %}
         {% endfor %}
     </div>
 
     <h2 class="h1 my-5">Nos hôtes stars</h2>
     <div class="row">
+        {% for data in users %}
+        {% set user = data.user %}
+        
         <div class="col">
             <div class="card border-secondary mb-3">
                 <div class="card-body">
-                    <h4 class="card-title">Benjamin GIRARD</h4>
+                    <h4 class="card-title">{{user.fullName}}</h4>
                     <hr>
                     <div class="card-text">
-                        <img src="http://placehold.it/64x64" class="float-left mr-3" alt="mon avatar">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos sint.</p>
-                        <a href="#" class="btn btn-success float-right"> en savoir plus !</a>
+                        <img src="{{user.picture}}" class="float-left mr-3" alt="Avatar de {{user.fullName}}">
+                        <p>{{ user.introduction }}</p>
+                        <a href="{{path('user_show', {'slug': user.slug})}}" class="btn btn-success float-right"> en savoir plus !</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card border-secondary mb-3">
-                <div class="card-body">
-                    <h4 class="card-title">Benjamin GIRARD</h4>
-                    <hr>
-                    <div class="card-text">
-                        <img src="http://placehold.it/64x64" class="float-left mr-3" alt="mon avatar">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos sint.</p>
-                        <a href="#" class="btn btn-success float-right"> en savoir plus !</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 
 </div>
