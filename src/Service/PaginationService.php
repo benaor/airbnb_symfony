@@ -43,6 +43,11 @@ class PaginationService
     }
 
     public function getData(){
+
+        if(empty($this->entityClass)) {
+            throw new \Exception("Vous n'avez pas spécifié l'entité sur laquelle vous souhaitez paginer. Utilisez la méthode setEntityClass() de votre objet PaginationService");
+        }
+
         $offset = $this->currentPage * $this->limit - $this->limit; 
         $repo   = $this->manager->getRepository($this->entityClass);
         $data   = $repo->findBy([], [], $this->limit, $offset);
